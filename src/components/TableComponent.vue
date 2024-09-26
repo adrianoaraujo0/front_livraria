@@ -1,24 +1,38 @@
 <template>
   <div class="q-pa-md">
-    <q-table
-      flat bordered
-      :title="props.title"
-      :rows="rows"
-      :columns="columns"
-      row-key="id"
-      :style="{backgroundColor:'#C0C0C0'}"
-    >
-    <template v-slot:body-cell="propsTable">
 
-      <q-td :props="propsTable">
-        <q-input
-          v-model="propsTable.row[ propsTable.col.name]"
-          input-class="text-left"
-          type="text"
-          dense
-          borderless
-        />
-      </q-td>
+    <q-table flat bordered :title="props.title" :rows="rows" :columns="columns" row-key="id"
+      :style="{ backgroundColor: '#C0C0C0' }" :filter="filter">
+
+
+
+      <template v-slot:top-right>
+
+        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+
+        <div style="padding-left: 20px;">
+          <q-btn color="deep-purple-9" icon="add" text-color="white" v-on:click="$router.push('/salvausuario')" />
+        </div>
+
+
+      </template>
+
+
+      <template v-slot:body-cell="propsTable">
+        <q-td :props="propsTable">
+          <q-input v-model="propsTable.row[propsTable.col.name]" input-class="text-left" type="text" dense borderless />
+        </q-td>
+      </template>
+
+      <template v-slot:body-cell-acoes="propsTable">
+        <q-td>
+          <q-btn icon="delete" style="color:red" @click="props.onClickDelete(propsTable.row)">
+          </q-btn>
+        </q-td>
       </template>
     </q-table>
   </div>
@@ -36,24 +50,31 @@ defineOptions({
 const props = defineProps<{
   datas: any[],
   headers: HeadersModel[],
-  title: string
+  title: string,
+  onClickDelete: (id: any) => void,
+  savePagePath: string
 }>()
 
-onBeforeMount(()=>{
-  console.log(props.headers)
-  props.headers.forEach((header)=>{
-    console.log(header.title)
+onBeforeMount(() => {
+
+
+  props.headers.forEach((header) => {
+    // console.log("title:" + header.title)
+    // console.log("key:" + header.key)
     columns.push({ name: header.key, align: 'left', label: header.title, field: header.key, sortable: true })
   })
 
+  columns.push({ name: 'acoes', align: 'left', label: 'Ações', field: 'acoes' });
 
-
-  props.datas.forEach((data)=>{
+  props.datas.forEach((data) => {
+    // console.log(data)
     rows.push(data)
   })
 
 
 })
+
+let filter = ref('')
 
 const columns: QTableColumn[] = reactive([])
 

@@ -34,6 +34,13 @@ const routes: RouteRecordRaw[] = [
       path:'', component:()=> import('pages/AluguelPage.vue')
     }]
   },
+  {
+    path:'/salvausuario',
+    component: ()=> import('layouts/MainLayout.vue'),
+    children: [{
+      path:'', component:()=> import('pages/SalvarUsuarioPage.vue')
+    }]
+  },
 
   {
     path: '/:catchAll(.*)*',

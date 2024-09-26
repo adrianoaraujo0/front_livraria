@@ -1,28 +1,23 @@
 <template>
 
-  <TableComponent
-  v-if="usuarioStore.showTable"
-    title="Usuários"
-    :datas=usuarioStore.usuarios
-    :headers="[
-      {
-        title:'Nome',
-        key:'nome'
-      },
-      {
-        title:'Cidade',
-        key:'cidade'
-      },
-      {
-        title:'Endereco',
-        key:'endereco'
-      },
-      {
-        title:'Email',
-        key:'email'
-      },
-    ]"
-  />
+  <TableComponent v-if="usuarioStore.showTable" title="Usuários" :datas=usuarioStore.usuarios :headers="[
+    {
+      title: 'Nome',
+      key: 'nome'
+    },
+    {
+      title: 'Cidade',
+      key: 'cidade'
+    },
+    {
+      title: 'Endereco',
+      key: 'endereco'
+    },
+    {
+      title: 'Email',
+      key: 'email'
+    },
+  ]" v-on:click-delete="(usuario) => { usuarioStore.deleteUsuario(usuario) }" save-page-path="/salvar_usuario" />
 
 </template>
 
@@ -32,11 +27,12 @@ import { useUsuarioStore } from 'src/stores/usuario-store';
 import { onBeforeMount } from 'vue';
 
 
-  const usuarioStore = useUsuarioStore()
+const usuarioStore = useUsuarioStore()
 
 
-onBeforeMount(()=>{
+onBeforeMount(() => {
   usuarioStore.getUsuarios();
 })
+
 
 </script>

@@ -1,15 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr lFf" :style="{backgroundColor:'#1C1C1C'}">
-    <q-header elevated :style="{backgroundColor:'#483D8B'}">
+  <q-layout view="lHh Lpr lFf" :style="{ backgroundColor: '#1C1C1C' }">
+    <q-header elevated :style="{ backgroundColor: '#483D8B' }">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
           Livraria
@@ -18,22 +11,12 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      :style="{backgroundColor:'#C0C0C0'}"
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered :style="{ backgroundColor: '#C0C0C0' }">
       <q-list>
 
 
-        <EssentialLink
-          v-for="route in routesList"
-          :key="route.title"
-          :title="route.title"
-          :icon="route.icon"
-          :path="route.path"
-        />
+        <EssentialLink v-for="route in routesList" :key="route.title" :title="route.title" :icon="route.icon"
+          :path="route.path" />
 
       </q-list>
     </q-drawer>
@@ -77,7 +60,7 @@ const routesList: Routes[] = [
   {
     title: "Alugueis",
     path: "/alugueis",
-    icon: ""
+    icon: "calendar_today"
   },
 ];
 
@@ -85,15 +68,11 @@ const routesList: Routes[] = [
 
 const leftDrawerOpen = ref(false);
 
-function toggleLeftDrawer () {
+function toggleLeftDrawer() {
   console.log("1")
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
 
 
-<style>
-
-
-
-</style>
+<style></style>
