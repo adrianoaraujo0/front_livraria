@@ -41,21 +41,20 @@ export const useUsuarioStore = defineStore('Usuario',{
         }
       }
     },
-    async cadastrarUsuario(user: UserModel) : Promise<number> {
-
-      console.log(user.nome);
-      console.log(user.email);
-      console.log(user.cidade);
-      console.log(user.endereco);
+    async cadastrarUsuario(user: UserModel, isEdit: boolean) : Promise<number> {
       try{
-        let response = await axios.post('https://livraria-api-linux.altislabtech.com.br/api/usuario/',
-          {
-            cidade: user.cidade,
-            email: user.email,
-            endereco: user.endereco,
-            nome: user.nome,
-          }
-        );
+        console.log(user)
+        var response;
+        if(isEdit){
+          response = await axios.put('https://livraria-api-linux.altislabtech.com.br/api/usuario/',
+            {...user}
+          );
+        }else{
+
+           response = await axios.post('https://livraria-api-linux.altislabtech.com.br/api/usuario/',
+            {...user}
+          );
+        }
 
         return response.status;
       }catch(e){

@@ -17,7 +17,14 @@
       title: 'Email',
       key: 'email'
     },
-  ]" v-on:click-delete="(usuario) => { usuarioStore.deleteUsuario(usuario) }" save-page-path="/salvar_usuario" />
+  ]" v-on:click-delete="(usuario) => { usuarioStore.deleteUsuario(usuario) }" v-on:click-edit="(usuario) => {
+    $router.push({
+      name: 'saveuser', query: {
+        user: JSON.stringify(usuario)
+      },
+    })
+
+  }" save-page-path="saveuser" />
 
 </template>
 

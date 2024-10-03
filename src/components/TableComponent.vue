@@ -15,7 +15,8 @@
         </q-input>
 
         <div style="padding-left: 20px;">
-          <q-btn color="deep-purple-9" icon="add" text-color="white" v-on:click="$router.push('/salvausuario')" />
+          <q-btn color="deep-purple-9" icon="add" text-color="white"
+            v-on:click="$router.push({ name: props.savePagePath })" />
         </div>
 
 
@@ -28,10 +29,15 @@
         </q-td>
       </template>
 
+      <template v-slot:body-cell-editar="propsTable">
+        <q-td>
+          <q-btn icon="edit" style="color:black" @click="props.onClickEdit(propsTable.row)" />
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-acoes="propsTable">
         <q-td>
-          <q-btn icon="delete" style="color:red" @click="props.onClickDelete(propsTable.row)">
-          </q-btn>
+          <q-btn icon="delete" style="color:red" @click="props.onClickDelete(propsTable.row)" />
         </q-td>
       </template>
     </q-table>
@@ -42,6 +48,7 @@
 import { QTableColumn } from 'quasar/dist/types/api/qtable';
 import { onBeforeMount, reactive, ref } from 'vue'
 import { HeadersModel } from './models';
+import { UserModel } from 'src/models/user-model';
 
 defineOptions({
   name: "TableComponent"
@@ -52,7 +59,9 @@ const props = defineProps<{
   headers: HeadersModel[],
   title: string,
   onClickDelete: (id: any) => void,
+  onClickEdit: (model: UserModel) => void,
   savePagePath: string
+
 }>()
 
 onBeforeMount(() => {
@@ -65,9 +74,9 @@ onBeforeMount(() => {
   })
 
   columns.push({ name: 'acoes', align: 'left', label: 'Ações', field: 'acoes' });
+  columns.push({ name: 'editar', align: 'left', label: 'Editar', field: 'editar' });
 
   props.datas.forEach((data) => {
-    // console.log(data)
     rows.push(data)
   })
 

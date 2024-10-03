@@ -35,8 +35,11 @@
 import { onBeforeMount, reactive, ref } from 'vue'
 import { useUsuarioStore } from 'src/stores/usuario-store';
 import { UserModel } from 'src/models/user-model';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+
 const router = useRouter()
+
+const route = useRoute()
 
 
 
@@ -47,18 +50,32 @@ let user = reactive<UserModel>({
   endereco: ''
 })
 
+let isEdit = false;
 
 let cadastrarUsuarioERetornarParaListagem = async () => {
-  let status = await usuarioStore.cadastrarUsuario(user);
-  console.log("RETORNO: " + status)
+
+  let status = await usuarioStore.cadastrarUsuario(user, isEdit);
+
   if (status == 200) {
-    alert("Usuario salvo com sucesso")
+    alert("Usuario salvo com sucesso!")
     router.push("/usuarios");
   }
+
 }
 
 
 const usuarioStore = useUsuarioStore()
+
+onBeforeMount(() => {
+  console.log("BEFORE MOUNT")
+  isEdit = route.query.user != undefined;
+  if (isEdit) {
+    user = JSON.parse(route.query.user as string)
+
+  }
+})
+
+
 
 
 

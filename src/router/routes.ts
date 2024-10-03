@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
     component: ()=> import('layouts/MainLayout.vue'),
     children: [{
       path:'', component:()=> import('pages/UsuarioPage.vue')
-    }]
+    }],
   },
   {
     path:'/alugueis',
@@ -35,11 +35,14 @@ const routes: RouteRecordRaw[] = [
     }]
   },
   {
-    path:'/salvausuario',
-    component: ()=> import('layouts/MainLayout.vue'),
-    children: [{
-      path:'', component:()=> import('pages/SalvarUsuarioPage.vue')
-    }]
+      path:'/salvausuario',
+      component: ()=> import('layouts/MainLayout.vue'),
+      props: route => ({ query: route.query.user }),
+      children: [{
+        path:'', component:()=> import('pages/SalvarUsuarioPage.vue'),
+        name: 'saveuser',
+      }],
+
   },
 
   {
