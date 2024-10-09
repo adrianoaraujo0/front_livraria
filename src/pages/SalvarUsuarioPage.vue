@@ -57,8 +57,8 @@ let cadastrarUsuarioERetornarParaListagem = async () => {
   let status = await usuarioStore.cadastrarUsuario(user, isEdit);
 
   if (status == 200) {
-    alert("Usuario salvo com sucesso!")
     router.push("/usuarios");
+    alert(isEdit ? "Usuario editado com sucesso!" : "Usuario salvo com sucesso!")
   }
 
 }

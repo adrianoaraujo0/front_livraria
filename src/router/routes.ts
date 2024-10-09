@@ -42,8 +42,16 @@ const routes: RouteRecordRaw[] = [
         path:'', component:()=> import('pages/SalvarUsuarioPage.vue'),
         name: 'saveuser',
       }],
-
   },
+  {
+    path:'/salvaeditora',
+    component: ()=> import('layouts/MainLayout.vue'),
+    // props: route => ({ query: route.query.editora }),
+    children: [{
+      path:'', component:()=> import('pages/SalvarEditoraPage.vue'),
+      name: 'saveeditora',
+    }],
+},
 
   {
     path: '/:catchAll(.*)*',

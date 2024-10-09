@@ -49,6 +49,7 @@ import { QTableColumn } from 'quasar/dist/types/api/qtable';
 import { onBeforeMount, reactive, ref } from 'vue'
 import { HeadersModel } from './models';
 import { UserModel } from 'src/models/user-model';
+import { EditoraModel } from 'src/models/editora-model';
 
 defineOptions({
   name: "TableComponent"
@@ -65,6 +66,7 @@ const props = defineProps<{
 }>()
 
 onBeforeMount(() => {
+  console.log(props.savePagePath)
 
 
   props.headers.forEach((header) => {
